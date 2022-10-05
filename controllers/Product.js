@@ -1,10 +1,13 @@
 import Product from "../models/productModel.js";
 
+// getAllData
 export const getAllProduct = async (req, res) => {
+  // this is for native pagination default currentPage is 1, and perPage 5
   // const currentPage = req.query.page || 1;
   // const perPage = req.query.perPage || 5;
 
   let query = {};
+  // pagination
   // query.offset = (parseInt(currentPage) - 1) * parseInt(perPage);
   // query.limit = parseInt(perPage);
 
@@ -14,8 +17,8 @@ export const getAllProduct = async (req, res) => {
         message: "Success get Data Gudang",
         data: result.rows,
         total_data: result.count,
-        // per_page: parseInt(perPage),
-        // current_page: parseInt(currentPage),
+        // per_page: parseInt(perPage),         // Pagination
+        // current_page: parseInt(currentPage), // Pagination
       });
     })
     .catch((err) => {
@@ -23,6 +26,7 @@ export const getAllProduct = async (req, res) => {
     });
 };
 
+// getDataById
 export const getProductById = async (req, res) => {
   try {
     const product = await Product.findAll({
@@ -36,6 +40,7 @@ export const getProductById = async (req, res) => {
   }
 };
 
+// deleteData by id
 export const deleteProduct = async (req, res) => {
   Product.destroy({ where: { id: req.params.id } })
     .then((result) => {
@@ -48,6 +53,7 @@ export const deleteProduct = async (req, res) => {
     });
 };
 
+// updateData by id
 export const updateProduct = async (req, res) => {
   const payload = {
     name: req.body.name,
@@ -69,6 +75,7 @@ export const updateProduct = async (req, res) => {
     });
 };
 
+// createData
 export const createProduct = async (req, res) => {
   const payload = {
     name: req.body.name,
